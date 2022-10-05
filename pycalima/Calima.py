@@ -67,9 +67,18 @@ CHARACTERISTIC_TEMP_HEAT_DISTRIBUTOR = "a22eae12-dba8-49f3-9c69-1721dcff1d96"
 CHARACTERISTIC_TIME_FUNCTIONS = "49c616de-02b1-4b67-b237-90f66793a6f2"
 
 async def FindCalimas():
-    devices = await BleakScanner.discover(); 
-    calimas = filter(lambda dev: dev.address[0:8] == "58:2b:db", devices)
-    return tuple(map(lambda dev: dev.address, calimas))
+
+    addresses = [device.address for device in await BleakScanner.discover(timeout=1)]
+
+    calimas = []
+
+    print(addresses)
+
+    for a in addresses:
+        if a[0:8] == "58:2b:db":
+            calimas.append(a)
+
+    return tuple(e for e in calimas)
 
 class Calima:
 
