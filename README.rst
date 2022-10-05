@@ -9,18 +9,18 @@ This module provides a very simple interface against the various
 GATT characteristics of the Calima fan, most importantly it handles the
 authentication so values are actually persisted within the fan.
 
-Uses `BluePy <https://github.com/IanHarvey/bluepy>`_
+Uses `Bleak <https://github.com/hbldh/bleak>`_
 
 
 Installation
 ----------
-I did this on Raspberry Pi Zero W but it can be done on any computer which support BluePy (and has a bluetooth dongle).
+I did this on Raspberry Pi Zero W but it can be done on any computer which support Bleak (and has a bluetooth dongle).
 
 You will need to install python3 which is Python v 3.4 if you install it from apt-get repos.
    $apt install python3 python3-pip libglib2.0-dev
 
-Then install BluePy
-    $sudo pip3 install bluepy
+Then install bleak
+    $sudo pip3 install bleak
 
 Clone this repo and then user run.py script to set the basic settings for your Calima. They will be applied if Calima was power cycled. Afterwards it will just poll Calima and output the data. You can pipe it to your home autmation scripts or or cronjob it to a file. 
 
