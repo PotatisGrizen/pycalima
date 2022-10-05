@@ -68,7 +68,7 @@ CHARACTERISTIC_TIME_FUNCTIONS = "49c616de-02b1-4b67-b237-90f66793a6f2"
 
 async def FindCalimas():
 
-    addresses = [device.address for device in await BleakScanner.discover(timeout=1)]
+    addresses = [device.address for device in await BleakScanner.discover()]
 
     calimas = []
 
