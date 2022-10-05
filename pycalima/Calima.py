@@ -20,7 +20,8 @@
 from struct import pack, unpack
 import time
 import datetime
-import bluepy.btle as ble
+from bleak import BleakScanner
+from bleak import BleakClient
 import binascii
 import math
 from collections import namedtuple
@@ -65,18 +66,17 @@ CHARACTERISTIC_STATUS = "25a824ad-3021-4de9-9f2f-60cf8d17bded"
 CHARACTERISTIC_TEMP_HEAT_DISTRIBUTOR = "a22eae12-dba8-49f3-9c69-1721dcff1d96"
 CHARACTERISTIC_TIME_FUNCTIONS = "49c616de-02b1-4b67-b237-90f66793a6f2"
 
-def FindCalimas():
-    scanner = ble.Scanner()
-    devices = scanner.scan()
-    calimas = filter(lambda dev: dev.addr[0:8] == "58:2b:db", devices)
-    return tuple(map(lambda dev: dev.addr, calimas))
+async def FindCalimas():
+    devices = await BleakScanner.discover(); 
+    calimas = filter(lambda dev: dev.address[0:8] == "58:2b:db", devices)
+    return tuple(map(lambda dev: dev.address, calimas))
 
 class Calima:
 
-    def __init__(self, addr, pin):
+    async def __init__(self, addr, pin):
         # Set debug to true if you want more verbose output
         self._debug = False
-        self.conn = ble.Peripheral(deviceAddr=addr)
+        self.conn = await BleakClient(addr).connect();
         self.setAuth(pin)
 
     def __del__(self):

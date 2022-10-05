@@ -20,7 +20,7 @@
 
 from pycalima.Calima import Calima,FindCalimas
 
-import sys, getopt, time
+import sys, getopt, time, asyncio
 
 def printHelp():
     print("\nCommand control and monitoring tool for PAX Calima fan. Let the air flow!\n")
@@ -33,7 +33,7 @@ def printHelp():
     print("-t SPD\tSet trickle speed to SPD in all modes. Use max 2000.")
     print("\tWarning: this will make fan run at at this speed all the time")
 
-def main():
+async def main():
 
 # Define vars
     action = ""
@@ -54,7 +54,7 @@ def main():
             printHelp()
             sys.exit()
         elif opt == '-l':
-            print(FindCalimas())
+            print(await FindCalimas())
             sys.exit()
         elif opt in ("-m"):
             mac_address = arg
@@ -131,4 +131,4 @@ def main():
 
 
 if __name__ == '__main__':
-   main()
+   asyncio.run(main())
