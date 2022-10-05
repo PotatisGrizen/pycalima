@@ -71,9 +71,7 @@ async def FindCalimas():
     addresses = [device.address for device in await BleakScanner.discover()]
 
     calimas = []
-
-    print(addresses)
-
+    
     for a in addresses:
         if a[0:8] == "58:2b:db":
             calimas.append(a)
